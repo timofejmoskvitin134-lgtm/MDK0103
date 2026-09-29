@@ -1,6 +1,6 @@
 package com.example.pr01.data
 
-data class products(
+data class Products(
     val id: Int,
     val title: String,
     val rating: Double,

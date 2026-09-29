@@ -22,7 +22,7 @@ class MainActivity : ComponentActivity() {
 
             LazyColumn {
                 items(viewModel.productsList) { product ->
-                    Text(text = "${product.title} — rating: ${product.rating}")
+                    Text(text = "${product.title} — rating: ${product.rating}  — brand: ${product.brand}")
                 }
             }
         }

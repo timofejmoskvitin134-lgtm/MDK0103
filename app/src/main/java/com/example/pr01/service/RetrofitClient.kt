@@ -19,5 +19,5 @@ object RetrofitClient {
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 
-    val retrofitAPI: productsinterface =retrofit.create(productsinterface::class.java)
+    val retrofitAPI: ProductsInterface =retrofit.create(ProductsInterface::class.java)
 }

@@ -8,21 +8,23 @@ import kotlinx.coroutines.launch
 
 class ProductViewModel: ViewModel() {
 
-    fun fetchproducts() {
+    fun fetchproducts() { /* ... */ }
+
+    fun deleteProduct(id: Int) {
         viewModelScope.launch {
             try {
-                val productResponse = RetrofitClient.retrofitAPI.getproducts()
-                val products = productResponse.products
-                for (product in products) {
-                    Log.d(
-                        "ProductViewModul",
-                        "Название - ${product.title}  " +
-                                "\nРейтинг - ${product.rating}  " +
-                                "\nПроизводитель - ${product.brand}"
-                    )
-                }
+                val response = RetrofitClient.retrofitAPI.deleteProduct(id)
+
+                Log.d(
+                    "ProductViewModel",
+                    "ТОВАР УСПЕШНО УДАЛЕН!" +
+                            "\nИдентификатор: ${response.id}" +
+                            "\nНазвание: ${response.title}" +
+                            "\nisDeleted: ${response.isDeleted}" +
+                            "\ndeletedOn: ${response.deletedOn}"
+                )
             } catch (e: Exception) {
-                Log.e("ProductViewModul", "${e.message}", e)
+                Log.e("ProductViewModel", "Ошибка удаления товара: ${e.message}", e)
             }
         }
     }

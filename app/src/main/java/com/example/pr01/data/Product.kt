@@ -4,5 +4,7 @@ data class Product(
     val id: Int,
     val title: String,
     val rating: Double,
-    val brand: String
+    val brand: String,
+    val isDeleted: Boolean,
+    val deletedOn: String
 )

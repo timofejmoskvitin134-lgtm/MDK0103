@@ -3,22 +3,44 @@ package com.example.pr01
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.runtime.LaunchedEffect
-import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.pr01.ViewModel.ProductViewModel
-import com.example.pr01.ui.theme.Pr01Theme
+import androidx.activity.viewModels
+import androidx.lifecycle.viewmodel.initializer
+import androidx.lifecycle.viewmodel.viewModelFactory
+import com.example.pr01.ViewModel.LoginViewModel
+import com.example.pr01.ViewModel.RecipesViewModel
+import com.example.pr01.data.AuthRequest
+import com.example.pr01.service.TokenManager
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContent {
-            Pr01Theme {
-                val productViewModel: ProductViewModel = viewModel()
 
-                LaunchedEffect(Unit) {
-                    productViewModel.deleteProduct(id = 12)
+        val tokenManager = TokenManager(applicationContext)
+        setContent {
+
+            val recipesViewModel: RecipesViewModel by viewModels{
+                viewModelFactory {
+                    initializer{
+                        RecipesViewModel(tokenManager)
+
+                    }
                 }
             }
+
+            val loginViewModel: LoginViewModel by viewModels{
+                viewModelFactory {
+                    initializer{
+                        LoginViewModel(tokenManager,recipesViewModel )
+                    }
+                }
+            }
+
+            val authRequest = AuthRequest(
+                identity = "timofejmoskvitin134@gmail.com",
+                password = "Password123!"
+            )
+            loginViewModel.login(authRequest)
+
         }
     }
 }

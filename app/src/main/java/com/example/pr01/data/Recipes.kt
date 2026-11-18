@@ -5,5 +5,5 @@ data class Recipes(
     val name: String,
     val difficulty: String,
     val created: String? = null,
-    val updated: String? = null
+    val uppdated: String? = null
 )

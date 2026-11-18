@@ -1,7 +1,4 @@
 package com.example.pr01.data
-
-import android.R
-
 data class Recipe(
     val id: Int? = null,
     val name: String,
